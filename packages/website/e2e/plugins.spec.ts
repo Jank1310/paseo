@@ -155,14 +155,19 @@ test("filters browse results as you type in one history entry", async ({ page })
   await expect(page.getByRole("link", { name: /Dracula/ })).toHaveCount(0);
   expect(await historyLength(page)).toBe(entries + 1);
 
-  await page.reload();
-  await expect(page.getByRole("heading", { level: 1, name: /^Results for “gra”/ })).toBeVisible();
-  await expect(page.getByRole("searchbox", { name: "Search plugins" })).toHaveValue("gra");
-
   await page.goBack();
   await expect(page).toHaveURL(/\/plugins\/all$/);
   await expect(page.getByRole("heading", { level: 1, name: /^All plugins/ })).toBeVisible();
   await expect(page.getByRole("searchbox", { name: "Search plugins" })).toHaveValue("");
+
+  await page.goForward();
+  await expect(page).toHaveURL(/\/plugins\/all\?q=gra$/);
+  await expect(page.getByRole("heading", { level: 1, name: /^Results for “gra”/ })).toBeVisible();
+  await expect(page.getByRole("searchbox", { name: "Search plugins" })).toHaveValue("gra");
+
+  await page.reload();
+  await expect(page.getByRole("heading", { level: 1, name: /^Results for “gra”/ })).toBeVisible();
+  await expect(page.getByRole("searchbox", { name: "Search plugins" })).toHaveValue("gra");
 });
 
 test("keeps old category links working", async ({ page }) => {
