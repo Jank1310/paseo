@@ -40,6 +40,7 @@ import {
 } from "~/plugins/links";
 import { NewPluginCard, PluginRankRow } from "~/plugins/plugin-card";
 import { PluginSearch } from "~/plugins/plugin-search";
+import { PluginSection, PluginSectionHeader, PluginSectionTitle } from "~/plugins/section";
 import { WindowSwitch } from "~/plugins/window-switch";
 import "~/styles.css";
 
@@ -122,27 +123,23 @@ function PluginsPage() {
         </div>
       </div>
 
-      <section aria-labelledby="whats-new" className="mt-10">
-        <div className="mb-4 flex items-baseline justify-between gap-4">
-          <h2 id="whats-new" className="text-lg font-medium">
-            What’s new
-          </h2>
+      <PluginSection labelledBy="whats-new" className="mt-10">
+        <PluginSectionHeader>
+          <PluginSectionTitle id="whats-new">What’s new</PluginSectionTitle>
           <a href={browseHref({ sort: "new", window: DEFAULT_WINDOW })} className={SEE_ALL_CLASS}>
             See all
             <ChevronRight className="h-3.5 w-3.5" />
           </a>
-        </div>
+        </PluginSectionHeader>
         <div className="-mx-6 flex gap-4 overflow-x-auto px-6 pb-1 sm:mx-0 sm:grid sm:grid-cols-2 sm:px-0 lg:grid-cols-4">
           {newest.map((plugin) => (
             <NewPluginCard key={plugin.id} plugin={plugin} added={addedAgo(plugin, now)} />
           ))}
         </div>
-      </section>
+      </PluginSection>
 
-      <section aria-labelledby="categories" className="mt-14">
-        <h2 id="categories" className="mb-4 text-lg font-medium">
-          Categories
-        </h2>
+      <PluginSection labelledBy="categories" className="mt-14">
+        <PluginSectionTitle id="categories">Categories</PluginSectionTitle>
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
           {CATEGORIES.map((category) => {
             const Icon = CATEGORY_ICONS[category.slug];
@@ -163,15 +160,15 @@ function PluginsPage() {
             );
           })}
         </div>
-      </section>
+      </PluginSection>
 
-      <section
+      <PluginSection
         id="most-installed"
-        aria-labelledby="most-installed-title"
+        labelledBy="most-installed-title"
         className="mt-14 scroll-mt-8"
       >
-        <div className="mb-4 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2">
-          <h2 id="most-installed-title" className="text-lg font-medium">
+        <PluginSectionHeader>
+          <PluginSectionTitle id="most-installed-title">
             <a
               href={browseHref({ sort: "installs", window })}
               className="group inline-flex items-center gap-1"
@@ -179,9 +176,9 @@ function PluginsPage() {
               Most installed
               <ChevronRight className="h-4 w-4 text-muted-foreground transition-colors group-hover:text-foreground" />
             </a>
-          </h2>
+          </PluginSectionTitle>
           <WindowSwitch current={window} hrefs={windowHrefs} />
-        </div>
+        </PluginSectionHeader>
         <div className="-mx-4 grid gap-x-8 md:grid-cols-2">
           {top.map((plugin, index) => (
             <PluginRankRow
@@ -192,7 +189,7 @@ function PluginsPage() {
             />
           ))}
         </div>
-      </section>
+      </PluginSection>
 
       <ContributeSection />
     </SiteShell>
