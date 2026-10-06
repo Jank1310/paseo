@@ -72,9 +72,9 @@ export function searchPlugins(plugins: Plugin[], term: string): Plugin[] {
       .includes(needle),
   );
 }
-/** Newest submissions first; equal dates keep index order. */
+/** Most recently listed first; equal dates keep index order. */
 export function newestFirst(plugins: Plugin[]): Plugin[] {
-  return [...plugins].sort((a, b) => b.submittedAt.localeCompare(a.submittedAt));
+  return [...plugins].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
 }
 /** Most installs in the window first; equal counts keep index order. */
 export function mostInstalled(
@@ -85,9 +85,9 @@ export function mostInstalled(
   const count = (plugin: Plugin) => installs[plugin.id]?.[window] ?? 0;
   return [...plugins].sort((a, b) => count(b) - count(a));
 }
-/** How long ago the registry accepted the plugin, relative to the loader's clock. */
+/** How long ago the plugin was first listed, relative to the loader's clock. */
 export function addedAgo(plugin: Plugin, now: string): string {
-  const days = Math.floor((Date.parse(now) - Date.parse(plugin.submittedAt)) / DAY_MS);
+  const days = Math.floor((Date.parse(now) - Date.parse(plugin.publishedAt)) / DAY_MS);
   if (days <= 0) return "today";
   if (days === 1) return "yesterday";
   if (days < 14) return `${days}d ago`;
