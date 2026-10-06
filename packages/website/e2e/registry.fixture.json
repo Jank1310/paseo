@@ -5,6 +5,12 @@
     "url": "https://plugins.paseo.sh"
   },
   "generatedAt": "2026-10-04T15:55:47.882Z",
+  "featured": [
+    "omercnet/dracula",
+    "gpambrozio/herald",
+    "acme/not-published",
+    "gpambrozio/launchd-jobs"
+  ],
   "categories": [
     {
       "slug": "daemon-management",

@@ -62,6 +62,8 @@ export const PluginRegistryIndexSchema = z.object({
     z.object({ slug: z.string(), label: z.string(), description: z.string().optional() }),
   ),
   plugins: z.array(PublishedPluginSchema),
+  /** Plugin IDs the maintainer features, in display order. An ID may name a plugin that is not listed. */
+  featured: z.array(z.string()),
   generatedAt: z.string(),
 });
 export type PluginRegistryIdentity = z.infer<typeof PluginRegistryIdentitySchema>;

@@ -77,6 +77,11 @@ export function searchPlugins(plugins: Plugin[], term: string): Plugin[] {
       .includes(needle),
   );
 }
+/** The featured IDs that name a listed plugin, in the registry's order, each once. */
+export function featuredPlugins(plugins: Plugin[], featured: string[]): Plugin[] {
+  const byId = new Map(plugins.map((plugin) => [plugin.id, plugin]));
+  return [...new Set(featured)].flatMap((id) => byId.get(id) ?? []);
+}
 /** Most recently listed first; equal dates keep index order. */
 export function newestFirst(plugins: Plugin[]): Plugin[] {
   return [...plugins].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));

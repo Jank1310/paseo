@@ -3,6 +3,7 @@ import { createServer } from "node:http";
 import { describe, expect, it } from "vitest";
 import {
   addedAgo,
+  featuredPlugins,
   formatInstalls,
   installCommand,
   mostInstalled,
@@ -41,6 +42,7 @@ describe("plugin registry", () => {
       registry: { name: "Internal", url: "https://example.test" },
       categories: [],
       plugins: [plugin],
+      featured: [plugin.id],
       generatedAt: "2026-10-03",
     };
     const detail = { ...plugin, readme: "# Example" };
@@ -60,6 +62,19 @@ describe("plugin registry", () => {
     } finally {
       await new Promise<void>((resolve) => server.close(() => resolve()));
     }
+  });
+  it("features listed plugins once each, in the registry's order, dropping IDs that are not listed", () => {
+    const listed = [
+      { ...plugin, id: "acme/first" },
+      { ...plugin, id: "acme/second" },
+      { ...plugin, id: "acme/third" },
+    ];
+    const featured = ["acme/third", "acme/not-published", "acme/first", "acme/third"];
+    expect(featuredPlugins(listed, featured).map((p) => p.id)).toEqual([
+      "acme/third",
+      "acme/first",
+    ]);
+    expect(featuredPlugins(listed, ["acme/not-published"])).toEqual([]);
   });
   it("lists what's new by first-listing date, not submission or update dates", () => {
     const listedFirst = {
@@ -181,6 +196,7 @@ describe("plugin registry", () => {
           registry: { name: "Internal", url: base },
           categories: [],
           plugins: [plugin],
+          featured: [],
           generatedAt: "2026-10-03",
         },
       }),
