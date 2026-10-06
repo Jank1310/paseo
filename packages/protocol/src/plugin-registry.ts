@@ -39,13 +39,21 @@ export const PublishedPluginSchema = z.object({
   repository: z.object({ url: z.string().url(), commit: z.string().optional() }),
   artifact: PluginRegistryArtifactSchema,
   icon: z.string().url().optional(),
-  screenshots: z.array(z.string().url()),
+  /** Images and videos in display order; see `pluginMediaKind`. */
+  media: z.array(z.string().url()),
   submittedAt: z.string(),
   reviewedAt: z.string(),
   updatedAt: z.string(),
   publishedAt: z.string(),
   installs: z.number().int().nonnegative().optional(),
 });
+const VIDEO_EXTENSIONS = new Set(["mp4", "webm"]);
+
+/** Whether a registry media entry is a video or an image, from its path extension. */
+export function pluginMediaKind(url: string): "image" | "video" {
+  const extension = new URL(url).pathname.split(".").pop()?.toLowerCase() ?? "";
+  return VIDEO_EXTENSIONS.has(extension) ? "video" : "image";
+}
 export const PublishedPluginDetailSchema = PublishedPluginSchema.extend({ readme: z.string() });
 export const PluginRegistryIndexSchema = z.object({
   schemaVersion: z.literal(1),

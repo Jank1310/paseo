@@ -74,7 +74,7 @@
         "name": "alhassanaraouf",
         "github": "alhassanaraouf"
       },
-      "screenshots": [
+      "media": [
         "https://raw.githubusercontent.com/alhassanaraouf/paseo-themes/main/packages/paseo-base2tone-theme/preview.png"
       ],
       "submittedAt": "2026-09-24T00:00:00.000Z",
@@ -106,7 +106,7 @@
         "name": "Tom Lundy",
         "github": "dorasto"
       },
-      "screenshots": [
+      "media": [
         "https://raw.githubusercontent.com/dorasto/sayr/main/packages/paseo-plugin/assets/sayr-plguin-1.png",
         "https://raw.githubusercontent.com/dorasto/sayr/main/packages/paseo-plugin/assets/paseo-plugin-2.png"
       ],
@@ -139,7 +139,7 @@
         "name": "gpambrozio",
         "github": "gpambrozio"
       },
-      "screenshots": [
+      "media": [
         "https://raw.githubusercontent.com/gpambrozio/paseo-plugins/main/github-board/docs/screenshot.png",
         "https://raw.githubusercontent.com/gpambrozio/paseo-plugins/main/github-board/docs/detail-panel.png"
       ],
@@ -172,7 +172,7 @@
         "name": "gpambrozio",
         "github": "gpambrozio"
       },
-      "screenshots": [
+      "media": [
         "https://raw.githubusercontent.com/gpambrozio/paseo-plugins/main/herald/docs/panel.png",
         "https://raw.githubusercontent.com/gpambrozio/paseo-plugins/main/herald/docs/timeline-card.png"
       ],
@@ -205,8 +205,8 @@
         "name": "gpambrozio",
         "github": "gpambrozio"
       },
-      "screenshots": [
-        "https://raw.githubusercontent.com/gpambrozio/paseo-plugins/main/launchd-jobs/docs/screenshot.png"
+      "media": [
+        "https://raw.githubusercontent.com/web-platform-tests/wpt/master/media/movie_5.mp4"
       ],
       "submittedAt": "2026-09-19T00:00:00.000Z",
       "reviewedAt": "2026-10-03T00:00:00.000Z",
@@ -237,7 +237,7 @@
         "name": "gpambrozio",
         "github": "gpambrozio"
       },
-      "screenshots": [
+      "media": [
         "https://raw.githubusercontent.com/gpambrozio/paseo-plugins/main/model-pricing/docs/screenshot.png"
       ],
       "submittedAt": "2026-09-19T00:00:00.000Z",
@@ -269,7 +269,7 @@
         "name": "gpambrozio",
         "github": "gpambrozio"
       },
-      "screenshots": [],
+      "media": [],
       "submittedAt": "2026-09-19T00:00:00.000Z",
       "reviewedAt": "2026-10-03T00:00:00.000Z",
       "publishedAt": "2026-09-19T00:00:00.000Z",
@@ -298,7 +298,7 @@
         "name": "hungcuong9125",
         "github": "hungcuong9125"
       },
-      "screenshots": [
+      "media": [
         "https://raw.githubusercontent.com/hungcuong9125/paseo-prompt-kit/main/docs/images/settings-provider-cli.png",
         "https://raw.githubusercontent.com/hungcuong9125/paseo-prompt-kit/main/docs/images/settings-direct-api.png"
       ],
@@ -331,7 +331,7 @@
         "name": "Omer Cohen",
         "github": "omercnet"
       },
-      "screenshots": [
+      "media": [
         "https://raw.githubusercontent.com/omercnet/paseo-plugins/main/agent-monitor/docs/images/agent-monitor-roster.png",
         "https://raw.githubusercontent.com/omercnet/paseo-plugins/main/agent-monitor/docs/images/agent-monitor-settings.png"
       ],
@@ -364,7 +364,7 @@
         "name": "Omer Cohen",
         "github": "omercnet"
       },
-      "screenshots": [
+      "media": [
         "https://raw.githubusercontent.com/omercnet/paseo-plugins/main/paseo-beads/docs/images/paseo-beads-wide.png",
         "https://raw.githubusercontent.com/omercnet/paseo-plugins/main/paseo-beads/docs/images/paseo-beads-compact.png"
       ],
@@ -397,8 +397,9 @@
         "name": "Omer Cohen",
         "github": "omercnet"
       },
-      "screenshots": [
+      "media": [
         "https://raw.githubusercontent.com/omercnet/paseo-plugins/main/paseo-dracula/screenshot.png",
+        "https://raw.githubusercontent.com/web-platform-tests/wpt/master/media/movie_5.webm",
         "https://raw.githubusercontent.com/omercnet/paseo-plugins/main/paseo-dracula/screenshot-alucard.png"
       ],
       "submittedAt": "2026-09-17T00:00:00.000Z",
@@ -430,7 +431,7 @@
         "name": "Omer Cohen",
         "github": "omercnet"
       },
-      "screenshots": [
+      "media": [
         "https://raw.githubusercontent.com/omercnet/paseo-plugins/main/fresh-worktrees/docs/images/fresh-worktrees-behind.png",
         "https://raw.githubusercontent.com/omercnet/paseo-plugins/main/fresh-worktrees/docs/images/fresh-worktrees-settings.png"
       ],
@@ -463,7 +464,7 @@
         "name": "Omer Cohen",
         "github": "omercnet"
       },
-      "screenshots": [
+      "media": [
         "https://raw.githubusercontent.com/omercnet/paseo-plugins/main/paseo-omp/docs/images/plugin-manager.png",
         "https://raw.githubusercontent.com/omercnet/paseo-plugins/main/paseo-omp/docs/images/workspace-settings.png"
       ],
@@ -496,7 +497,7 @@
         "name": "Omer Cohen",
         "github": "omercnet"
       },
-      "screenshots": [],
+      "media": [],
       "submittedAt": "2026-09-17T00:00:00.000Z",
       "reviewedAt": "2026-10-03T00:00:00.000Z",
       "publishedAt": "2026-09-17T00:00:00.000Z",
@@ -526,7 +527,7 @@
         "name": "Omer Cohen",
         "github": "omercnet"
       },
-      "screenshots": [
+      "media": [
         "https://raw.githubusercontent.com/omercnet/paseo-plugins/main/paseo-shared-browser/docs/images/shared-browser-wide.png",
         "https://raw.githubusercontent.com/omercnet/paseo-plugins/main/paseo-shared-browser/docs/images/shared-browser-compact.png"
       ],
@@ -559,7 +560,7 @@
         "name": "Omer Cohen",
         "github": "omercnet"
       },
-      "screenshots": [],
+      "media": [],
       "submittedAt": "2026-09-17T00:00:00.000Z",
       "reviewedAt": "2026-10-03T00:00:00.000Z",
       "publishedAt": "2026-09-17T00:00:00.000Z",
@@ -588,7 +589,7 @@
         "name": "Tom Gringauz",
         "github": "tomgrin10"
       },
-      "screenshots": [
+      "media": [
         "https://raw.githubusercontent.com/tomgrin10/paseo-defer/main/docs/defer-popover.png"
       ],
       "submittedAt": "2026-09-22T00:00:00.000Z",
@@ -619,7 +620,7 @@
         "name": "Tom Gringauz",
         "github": "tomgrin10"
       },
-      "screenshots": [],
+      "media": [],
       "submittedAt": "2026-09-22T00:00:00.000Z",
       "reviewedAt": "2026-10-03T00:00:00.000Z",
       "publishedAt": "2026-09-22T00:00:00.000Z",

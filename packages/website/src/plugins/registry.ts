@@ -1,5 +1,6 @@
 import type { z } from "zod";
-import type { PublishedPluginSchema } from "@getpaseo/protocol/plugin-registry";
+import { pluginOverviewUrl } from "@getpaseo/protocol/plugin-overview";
+import { pluginMediaKind, type PublishedPluginSchema } from "@getpaseo/protocol/plugin-registry";
 import { CATEGORIES, type Category, type CategorySlug } from "./categories";
 import type { InstallCounts, InstallWindow } from "./installs";
 export { CATEGORIES, type Category, type CategorySlug };
@@ -14,6 +15,10 @@ export interface Author {
 const DAY_MS = 24 * 60 * 60 * 1000;
 export function getCategory(slug: string): Category | null {
   return CATEGORIES.find((category) => category.slug === slug) ?? null;
+}
+/** The plugin's first HTTPS image, for cards and link previews; videos never stand in for one. */
+export function firstMediaImage(plugin: Plugin): string | undefined {
+  return plugin.media.find((url) => pluginOverviewUrl(url) && pluginMediaKind(url) === "image");
 }
 export function getPluginsInCategory(plugins: Plugin[], slug: string): Plugin[] {
   return plugins.filter((plugin) => plugin.categories.includes(slug));

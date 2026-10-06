@@ -27,7 +27,7 @@ const plugin: Plugin = {
     resolved: "https://registry.npmjs.org/example.tgz",
     integrity: "sha512-YWJj",
   },
-  screenshots: [],
+  media: [],
   submittedAt: "2026-10-03",
   reviewedAt: "2026-10-03",
   updatedAt: "2026-10-03",

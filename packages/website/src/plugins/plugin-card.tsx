@@ -1,16 +1,15 @@
-import { pluginOverviewUrl } from "@getpaseo/protocol/plugin-overview";
 import { Download } from "lucide-react";
 import { pluginCardScreenshot } from "./thumbnails";
 import { pluginHref } from "./links";
 import { PluginTile } from "./plugin-tile";
-import { formatInstalls, getCategory, type Plugin } from "./registry";
+import { firstMediaImage, formatInstalls, getCategory, type Plugin } from "./registry";
 
 export const PLUGIN_GRID_CLASS =
   "grid gap-x-4 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4";
 
-/** First allowed screenshot, or the plugin tile on a quiet backdrop when there is none. */
+/** First allowed image, or the plugin tile on a quiet backdrop when there is none. */
 function PluginShot({ plugin }: { plugin: Plugin }) {
-  const url = plugin.screenshots.find(pluginOverviewUrl);
+  const url = firstMediaImage(plugin);
   return (
     <div
       aria-hidden
