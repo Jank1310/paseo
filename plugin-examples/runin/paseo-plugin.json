@@ -1,0 +1,7 @@
+{
+  "id": "runin",
+  "description": "Create runin Machines with a Paseo daemon and copy their SSH address to add them as hosts.",
+  "requirements": {
+    "paseo": ">=0.10.2 <0.11.0"
+  }
+}
