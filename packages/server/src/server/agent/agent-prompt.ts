@@ -309,13 +309,30 @@ export async function sendPromptToAgent(
   const unarchive = params.unarchive ?? true;
 
   const record = await params.agentStorage.get(params.agentId);
+  let archivedAtToRestore: string | null = null;
   if (record?.archivedAt) {
     if (!unarchive) {
       return { disposition: "turn_started" };
     }
-    await unarchiveAgentState(params.agentStorage, params.agentManager, params.agentId);
+    if (await unarchiveAgentState(params.agentStorage, params.agentManager, params.agentId)) {
+      archivedAtToRestore = record.archivedAt;
+    }
   }
 
+  try {
+    return await loadAndStartAgentRun(params);
+  } catch (error) {
+    // A send that never started leaves the agent where it was: still archived.
+    if (archivedAtToRestore) {
+      await params.agentManager.archiveSnapshot(params.agentId, archivedAtToRestore);
+    }
+    throw error;
+  }
+}
+
+async function loadAndStartAgentRun(
+  params: SendPromptToAgentParams,
+): Promise<{ disposition: PromptDispatchDisposition }> {
   await ensureAgentLoaded(params.agentId, {
     agentManager: params.agentManager,
     agentStorage: params.agentStorage,
