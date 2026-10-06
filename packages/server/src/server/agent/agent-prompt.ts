@@ -320,24 +320,19 @@ export async function sendPromptToAgent(
   }
 
   try {
-    return await loadAndStartAgentRun(params);
+    await ensureAgentLoaded(params.agentId, {
+      agentManager: params.agentManager,
+      agentStorage: params.agentStorage,
+      logger: params.logger,
+    });
   } catch (error) {
-    // A send that never started leaves the agent where it was: still archived.
+    // A send that could not load the agent leaves it where it was: still archived.
+    // Concurrent sends share this load, so none of them holds a live session.
     if (archivedAtToRestore) {
       await params.agentManager.archiveSnapshot(params.agentId, archivedAtToRestore);
     }
     throw error;
   }
-}
-
-async function loadAndStartAgentRun(
-  params: SendPromptToAgentParams,
-): Promise<{ disposition: PromptDispatchDisposition }> {
-  await ensureAgentLoaded(params.agentId, {
-    agentManager: params.agentManager,
-    agentStorage: params.agentStorage,
-    logger: params.logger,
-  });
 
   if (params.sessionMode) {
     await params.agentManager.setAgentMode(params.agentId, params.sessionMode);
