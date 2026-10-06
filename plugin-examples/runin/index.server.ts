@@ -3,10 +3,12 @@ import { homedir } from "node:os";
 import { join } from "node:path";
 import {
   createMachine,
+  getTemplateStatus,
   listJobs,
   listMachineStates,
   removeMachine,
   retrySetup,
+  updateTemplate,
 } from "./shared/contracts";
 import { Provisioning } from "./server/provisioning";
 import { createRemote } from "./server/remote";
@@ -19,7 +21,10 @@ export default function contribute(server: PluginServerContext) {
   const directory = join(home, "runin", "runin");
   try {
     const ssh = createSsh(lifetime.signal);
-    const jobs = new Provisioning(join(directory, "jobs.json"), createRemote(ssh, lifetime.signal));
+    const remote = createRemote(ssh, lifetime.signal);
+    const jobs = new Provisioning(join(directory, "jobs.json"), remote);
+    server.handle(getTemplateStatus, () => remote.templates.status());
+    server.handle(updateTemplate, () => remote.templates.update());
     server.handle(createMachine, (input) => jobs.create(input));
     server.handle(listJobs, () => jobs.list());
     server.handle(
@@ -31,6 +36,7 @@ export default function contribute(server: PluginServerContext) {
     return async () => {
       lifetime.abort();
       await jobs.settle();
+      await remote.templates.settle();
     };
   } catch (error) {
     lifetime.abort();

@@ -3,7 +3,8 @@ import { z } from "zod";
 import type { Remote } from "./provisioning";
 import { createInput } from "../shared/contracts";
 import { bootstrap } from "./bootstrap";
-import { createTemplatePreparation, templateVersion } from "./template";
+import { templateVersion } from "./template";
+import { createTemplateManager } from "./template-status";
 import { createTemplateNaming } from "./template-name";
 import { readRunin } from "./ssh";
 
@@ -16,10 +17,17 @@ const machine = z.object({
 const creationName = z.string().regex(/^[a-z0-9-]{1,80}$/);
 export type Ssh = (target: string, command: string, stdin?: string) => Promise<string>;
 
-export function createRemote(ssh: Ssh, signal: AbortSignal): Remote {
+export function createRemote(
+  ssh: Ssh,
+  signal: AbortSignal,
+): Remote & {
+  templates: ReturnType<typeof createTemplateManager>;
+} {
   const resolveTemplateName = createTemplateNaming(ssh, signal);
+  const templates = createTemplateManager(ssh, signal, resolveTemplateName);
   return {
-    prepare: createTemplatePreparation(ssh, signal, resolveTemplateName),
+    templates,
+    prepare: templates.prepare,
     async create(name, size) {
       creationName.parse(name);
       createInput.shape.size.parse(size);

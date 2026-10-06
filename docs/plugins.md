@@ -119,6 +119,11 @@ Paseo is installed as `runin` under `/home/runin/.npm-global` (set in `~/.npmrc`
 from `/usr/local/bin/paseo`, so **Update daemon** works without root.
 The first build takes several minutes. The image leaves its Paseo systemd unit
 disabled; setup starts it on each new Machine so every daemon gets its own identity.
+The **Machine template** section checks the account's available version against the
+version bundled with the plugin. **Update template** builds that version and prepares
+all three Machine sizes in the background. Updates apply to future Machines; existing
+Machines keep their installed software. Build progress and errors remain visible when
+you reopen the screen. A failed status check shows **Template status unavailable**.
 Sign in to the agent providers you want to use after connecting. Retry setup
 reuses the existing Machine. Setup continues when the Runin screen is closed.
 Creating a Machine incurs runin usage charges.

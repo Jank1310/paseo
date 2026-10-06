@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ScrollView, Text, View } from "react-native";
 import { DeleteButton } from "./delete-button";
+import { TemplateSection } from "./template-section";
 import { useMutation, useQuery, useQueryClient, type QueryClient } from "@tanstack/react-query";
 import { useRpc, type PluginSurfaceProps } from "@getpaseo/plugin/client";
 import {
@@ -243,6 +244,7 @@ export function createRuninScreen({ ui }: RuninClient) {
               ))}
             </View>
           </SettingsSection>
+          <TemplateSection ui={ui} hostId={host.id} />
           <SettingsSection title="New Machine">
             <SettingsCard>
               <SettingsInput

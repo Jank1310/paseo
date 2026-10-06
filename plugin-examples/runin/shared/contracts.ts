@@ -23,6 +23,27 @@ export const jobSchema = createInput.extend({
 });
 export type Job = z.infer<typeof jobSchema>;
 
+export const templateStatusSchema = z.object({
+  name: z.string(),
+  expectedVersion: z.string(),
+  currentVersion: z.string().nullable(),
+  state: z.enum(["missing", "outdated", "building", "preparing", "ready", "failed"]),
+  checkedAt: z.number(),
+  updating: z.boolean(),
+  error: z.string().nullable(),
+});
+export type TemplateStatus = z.infer<typeof templateStatusSchema>;
+export const getTemplateStatus = defineRpc({
+  name: "template.status",
+  input: z.object({}),
+  output: templateStatusSchema,
+});
+export const updateTemplate = defineRpc({
+  name: "template.update",
+  input: z.object({}),
+  output: z.object({ updating: z.literal(true) }),
+});
+
 export const createMachine = defineRpc({
   name: "machine.create",
   input: createInput,

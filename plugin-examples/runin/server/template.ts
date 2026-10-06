@@ -174,6 +174,25 @@ CMD []
 WORKDIR /home/runin
 `;
 
+export async function readTemplateVersions(ssh: Ssh, signal: AbortSignal, templateName: string) {
+  const response = await readRunin(ssh, "template ls --json", signal);
+  let entries = template.array().parse(JSON.parse(response));
+  const hasName = entries.some((entry) => entry.name === templateName);
+  const hasVersion = entries.some(
+    (entry) => entry.name === templateName && entry.version === templateVersion,
+  );
+  if (hasName && !hasVersion) {
+    const versions = await readRunin(ssh, `template versions ${templateName} --json`, signal);
+    entries = template.array().parse(JSON.parse(versions));
+  }
+  entries = entries.filter((entry) => entry.name === templateName);
+  if (entries.filter((entry) => entry.version === templateVersion).length > 1)
+    throw new Error(
+      `runin returned duplicate versions of Template ${templateName}@${templateVersion}. Inspect the Template before retrying.`,
+    );
+  return entries;
+}
+
 export function createTemplatePreparation(
   ssh: Ssh,
   signal: AbortSignal,
@@ -183,24 +202,8 @@ export function createTemplatePreparation(
   let buildSubmitted = false;
 
   async function inspect(templateName: string) {
-    const response = await readRunin(ssh, "template ls --json", signal);
-    let entries = template.array().parse(JSON.parse(response));
-    const hasName = entries.some((entry) => entry.name === templateName);
-    const hasVersion = entries.some(
-      (entry) => entry.name === templateName && entry.version === templateVersion,
-    );
-    if (hasName && !hasVersion) {
-      const versions = await readRunin(ssh, `template versions ${templateName} --json`, signal);
-      entries = template.array().parse(JSON.parse(versions));
-    }
-    const matches = entries.filter(
-      (entry) => entry.name === templateName && entry.version === templateVersion,
-    );
-    if (matches.length > 1)
-      throw new Error(
-        `runin returned duplicate versions of Template ${templateName}@${templateVersion}. Inspect the Template before retrying.`,
-      );
-    return matches[0];
+    const entries = await readTemplateVersions(ssh, signal, templateName);
+    return entries.find((entry) => entry.version === templateVersion);
   }
 
   async function submitBuild(templateName: string) {
