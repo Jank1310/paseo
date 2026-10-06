@@ -86,6 +86,57 @@ plugin before compiling and starting from disk. A failed reload stays failed; Pa
 the old code. Use `enable`, `disable`, and `remove` to manage one plugin. Removing a directory source
 never deletes it. The global `pluginsEnabled` switch remains available.
 
+### Try the Runin example
+
+`plugin-examples/runin` works with the released Paseo 0.10.2 desktop and daemon.
+It adds a Runin sidebar screen that creates a persistent Machine and starts its
+Paseo daemon. When setup finishes, select the displayed SSH address and paste it
+into **Hosts → Add host → Remote SSH**, then choose **Connect**.
+Machine status comes from Runin: a green **Running** dot means the VM is running,
+not that Paseo has connected to it. Unavailable or stale status appears as **Unknown**.
+**Remove** asks you to confirm deletion of the Runin VM and its data. The card stays
+visible until Runin confirms deletion. If removal fails, use **Remove** again to
+check or finish deleting that same VM. Remove any saved Paseo host connection separately.
+
+Install it through the host's Plugins settings by entering the absolute path to
+`plugin-examples/runin` in **Plugin source**, or use the CLI:
+
+```bash
+paseo plugin install /absolute/path/to/paseo/plugin-examples/runin
+```
+
+The managing daemon needs existing SSH access to `runin.eu`. The desktop needs
+SSH access to connect the resulting host. Enable plugins on the intended host
+before installation. The Runin screen does not register hosts automatically or
+add an option to Paseo's connection menu.
+
+The example builds or reuses the account's `paseo-<tenant>@0.10.3-agents-20261006-v2` Template
+with a 30 GiB disk, Node, Python 3, Go, Bun, Docker Engine with Compose and Buildx,
+Paseo, Codex, Claude Code, Pi, the official Grok Build CLI, and
+[GitHub CLI 2.102.0](https://github.com/cli/cli/releases/tag/v2.102.0). The recipe checks
+the official archive's pinned SHA-256 checksum and installs `gh` at `/usr/local/bin/gh`,
+which is on the daemon's PATH. GitHub authentication remains user-configured.
+Paseo is installed as `runin` under `/home/runin/.npm-global` (set in `~/.npmrc`) and linked
+from `/usr/local/bin/paseo`, so **Update daemon** works without root.
+The first build takes several minutes. The image leaves its Paseo systemd unit
+disabled; setup starts it on each new Machine so every daemon gets its own identity.
+The **Machine template** section checks the account's available version against the
+version bundled with the plugin. **Update template** builds that version and prepares
+all three Machine sizes in the background. Updates apply to future Machines; existing
+Machines keep their installed software. Build progress and errors remain visible when
+you reopen the screen. A failed status check shows **Template status unavailable**.
+Sign in to the agent providers you want to use after connecting. Retry setup
+reuses the existing Machine. Setup continues when the Runin screen is closed.
+Creating a Machine incurs runin usage charges.
+
+For isolated development, use `npm run dev:desktop` and install with
+`paseo --home /absolute/path/to/paseo/.dev/paseo-home plugin install /absolute/path/to/paseo/plugin-examples/runin`.
+See [development setup](development.md) for runtime isolation.
+
+Run one Runin installation per daemon. The released SDK has no installation ID for backend
+state, so every installation shares the journal at `$PASEO_HOME/runin/runin/jobs.json`.
+Two installations overwrite each other's jobs. Keep `jobs.json`.
+
 ## Built-in plugins
 
 Built-in plugins ship from `plugins/<id>/`, with `paseo-plugin.json`, `index.server.ts`,
