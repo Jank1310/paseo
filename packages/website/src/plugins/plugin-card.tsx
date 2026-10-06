@@ -101,11 +101,9 @@ export function PluginRankRow({
   return (
     <a
       href={pluginHref(plugin.id)}
-      className="flex items-center gap-3 rounded-lg px-2 py-2.5 transition-colors hover:bg-white/[0.04]"
+      className="flex items-center gap-3 rounded-lg px-4 py-2.5 transition-colors hover:bg-white/[0.04]"
     >
-      <span className="w-4 text-right text-sm tabular-nums text-extra-muted-foreground">
-        {rank}
-      </span>
+      <span className="text-sm tabular-nums text-extra-muted-foreground">{rank}</span>
       <PluginTile plugin={plugin} size="sm" />
       <div className="min-w-0 flex-1">
         <p className="truncate text-sm text-white">{plugin.name}</p>

@@ -182,7 +182,7 @@ function PluginsPage() {
           </h2>
           <WindowSwitch current={window} hrefs={windowHrefs} />
         </div>
-        <div className="-mx-2 grid gap-x-8 md:grid-cols-2">
+        <div className="-mx-4 grid gap-x-8 md:grid-cols-2">
           {top.map((plugin, index) => (
             <PluginRankRow
               key={plugin.id}
